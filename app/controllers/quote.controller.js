@@ -1,15 +1,27 @@
 const db = require("../models");
 const Quote = db.Quotation;
 const Op = db.Sequelize.Op;
-const {createQuote, createQuoteLog} = require("../services/quotation.service")
+const {createQuote, createQuoteLog, createQuoteDetail, updateFrontView, updateBackView, uploadLeftView , uploadRightView} = require("../services/quotation.service")
+// const FormData = require('form-data')
+const multer = require('multer');
+const path = require("path");
+const fs = require('fs');
+const DIRFRONT = path.join(__dirname, '../../uploads/frontview');
+const DIRBACK = path.join(__dirname, '../../uploads/backview');
+const DIRLEFT = path.join(__dirname, '../../uploads/leftview');
+const DIRRIGHT = path.join(__dirname, '../../uploads/rightview');
+
+
+
+var Datenow = new Date().toLocaleString();
 
 exports.CreateQuote = (req, res) =>{
     var d = new Date(req.body.inception_date);
     var EndDate = d.setFullYear(d.getFullYear() + 1);
     
 
-    var Datenow = new Date().toLocaleString();
-    console.log(Datenow);
+    
+    // console.log(Datenow);
 
     const dataQuotes = {
         CustomerID : req.body.customerid,
@@ -32,7 +44,19 @@ exports.CreateQuote = (req, res) =>{
     };
 
     const PremiumDetails = req.body.premium_details;
-    // console.log(PremiumDetails[0].amount) ;
+    const VehicleDetails = req.body.vehicle_detail;
+
+    const dataVehicle = {
+        QuotationID : null,
+        Brand : VehicleDetails.brand,
+        Model : VehicleDetails.model,
+        Type  : VehicleDetails.type,
+        LicenseNo  : VehicleDetails.license_number,
+        EngineNo  : VehicleDetails.engine_number,
+        ChassisNo  : VehicleDetails.chassis_number,
+        Year  : VehicleDetails.manufactured_year
+    }
+    // console.log(req.body.model) ;
 
     createQuote(dataQuotes,(err,results)=>{
         if (err) {
@@ -42,6 +66,8 @@ exports.CreateQuote = (req, res) =>{
         }
         else{
             try {
+                dataVehicle.QuotationID = results.QuotationID;
+                createQuoteDetail(dataVehicle);
                 createQuoteLog(results);
                 res.status(200).send({
                     results
@@ -55,4 +81,115 @@ exports.CreateQuote = (req, res) =>{
 
     });
 
+};
+
+exports.uploadFrontView = (req, res) => {
+    const id = req.params.id;
+
+    var storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, DIRFRONT)
+        },
+        filename: function (req, file, cb) {
+            cb(null, id +"_"+ file.originalname )
+        }
+      })
+       
+    var upload = multer({ storage: storage }).single('frontFile')
+    upload(req, res, function (err) {
+        if (err) {
+            // An error occurred when uploading
+        }
+        const filePath = req.file.path;
+
+        updateFrontView(id,filePath);
+        res.json({
+            success: true,
+            message: 'Image uploaded!'
+        });
+    })
+    
+};
+
+exports.uploadBackView = (req, res) => {
+    const id = req.params.id;
+
+    var storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, DIRFRONT)
+        },
+        filename: function (req, file, cb) {
+            cb(null, id +"_"+ file.originalname )
+        }
+      })
+       
+    var upload = multer({ storage: storage }).single('backFile')
+    upload(req, res, function (err) {
+        if (err) {
+            // An error occurred when uploading
+        }
+        const filePath = req.file.path;
+
+        updateBackView(id,filePath);
+        res.json({
+            success: true,
+            message: 'Image uploaded!'
+        });
+    })
+    
+};
+
+exports.uploadLeftView = (req, res) => {
+    const id = req.params.id;
+
+    var storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, DIRFRONT)
+        },
+        filename: function (req, file, cb) {
+            cb(null, id +"_"+ file.originalname )
+        }
+      })
+       
+    var upload = multer({ storage: storage }).single('backFile')
+    upload(req, res, function (err) {
+        if (err) {
+            // An error occurred when uploading
+        }
+        const filePath = req.file.path;
+
+        updateLeftView(id,filePath);
+        res.json({
+            success: true,
+            message: 'Image uploaded!'
+        });
+    })
+    
+};
+exports.uploadRightView = (req, res) => {
+    const id = req.params.id;
+
+    var storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, DIRFRONT)
+        },
+        filename: function (req, file, cb) {
+            cb(null, id +"_"+ file.originalname )
+        }
+      })
+       
+    var upload = multer({ storage: storage }).single('backFile')
+    upload(req, res, function (err) {
+        if (err) {
+            // An error occurred when uploading
+        }
+        const filePath = req.file.path;
+
+        updateRightView(id,filePath);
+        res.json({
+            success: true,
+            message: 'Image uploaded!'
+        });
+    })
+    
 };

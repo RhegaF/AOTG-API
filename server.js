@@ -22,8 +22,19 @@ let corsOptions = {
 // var server = http.createServer(app);
 app.use(cors(corsOptions));
 
+app.use(express.static(__dirname + '/uploads'));
+
+try {
+    db.sequelize.authenticate();
+    console.log('Connection has been established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+    extended: true
+  })); 
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));

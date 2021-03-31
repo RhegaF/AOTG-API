@@ -32,7 +32,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: true,
             type: Sequelize.STRING(20)
         },
-        ChasisNo: {
+        ChassisNo: {
             allowNull: true,
             type: Sequelize.STRING(20)
         },
