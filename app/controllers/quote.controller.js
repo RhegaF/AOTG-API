@@ -124,8 +124,9 @@ exports.uploadFrontView = (req, res) => {
         if (err) {
             // An error occurred when uploading
         }
-        const filePath = req.file.path;
-        if (filePath != null || undefined) {
+        
+        if (req.file != null || undefined) {
+            const filePath = req.file.path;
             updateFrontView(id,filePath);
             res.json({
                 success: true,
@@ -145,6 +146,7 @@ exports.uploadFrontView = (req, res) => {
 
 exports.uploadBackView = (req, res) => {
     const id = req.params.id;
+    
     var storage = multer.diskStorage({
         destination: function (req, file, cb) {
             cb(null, DIRBACK)
@@ -159,9 +161,8 @@ exports.uploadBackView = (req, res) => {
         if (err) {
             // An error occurred when uploading
         }
-        
-        const filePath = req.file.path;
-        if (filePath != null || undefined) {
+        if (req.file != null || undefined) {
+            const filePath = req.file.path;
              updateBackView(id,filePath);
              res.json({
                  success: true,
@@ -173,12 +174,6 @@ exports.uploadBackView = (req, res) => {
                  message: 'No Image uploaded!'
              });
          }
-
-        // updateBackView(id,filePath);
-        // res.json({
-        //     success: true,
-        //     message: 'Image uploaded!'
-        // });
     })
     
 };
@@ -200,8 +195,9 @@ exports.uploadLeftView = (req, res) => {
         if (err) {
             // An error occurred when uploading
         }
-        const filePath = req.file.path;
-        if (filePath != null || undefined) {
+        
+        if (req.file != null || undefined) {
+            const filePath = req.file.path;
             updateLeftView(id,filePath);
             res.json({
                 success: true,
@@ -213,12 +209,6 @@ exports.uploadLeftView = (req, res) => {
                 message: 'No Image uploaded!'
             });
         }
-
-        // updateLeftView(id,filePath);
-        // res.json({
-        //     success: true,
-        //     message: 'Image uploaded!'
-        // });
     })
     
 };
@@ -239,11 +229,9 @@ exports.uploadRightView = (req, res) => {
         if (err) {
             // An error occurred when uploading
         }
-        const form = new FormData();
-        // const test = form.append('Vehicle');
-        // console.log(test)
-        const filePath = req.file.path;
-        if (filePath != null || undefined) {
+        
+        if (req.file != null || undefined) {
+            const filePath = req.file.path;
             updateRightView(id,filePath);
             res.json({
                 success: true,
@@ -255,12 +243,6 @@ exports.uploadRightView = (req, res) => {
                 message: 'No Image uploaded!'
             });
         }
-
-        // updateRightView(id,filePath);
-        // res.json({
-        //     success: true,
-        //     message: 'Image uploaded!'
-        // });
     })
     
 };

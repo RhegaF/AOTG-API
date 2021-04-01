@@ -129,10 +129,6 @@ module.exports = {
                 QuotationID: id
             }
         })
-            .then(() => {
-            })
-            .catch(err => {
-            });
     },
     updateBackView: (id, data) => {
         QuoteDetailMV.update({
@@ -142,10 +138,6 @@ module.exports = {
                 QuotationID: id
             }
         })
-            .then(() => {
-            })
-            .catch(err => {
-            });
     },
     updateLeftView: (id, data) => {
         QuoteDetailMV.update({
@@ -155,10 +147,6 @@ module.exports = {
                 QuotationID: id
             }
         })
-            .then(() => {
-            })
-            .catch(err => {
-            });
     },
     updateRightView: (id, data) => {
         QuoteDetailMV.update({
@@ -168,10 +156,6 @@ module.exports = {
                 QuotationID: id
             }
         })
-            .then(() => {
-            })
-            .catch(err => {
-            });
     }
 
 
