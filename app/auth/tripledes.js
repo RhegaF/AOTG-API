@@ -30,6 +30,4 @@ const decrypt3DES = {
       }
 }
 
-
-
   module.exports = {...encrypt3DES, ...decrypt3DES}

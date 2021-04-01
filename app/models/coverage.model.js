@@ -35,6 +35,14 @@ module.exports = (sequelize, Sequelize) => {
         DiscAmount: {
             allowNull: true,
             type: Sequelize.FLOAT()
+        },
+        AdminFee: {
+            allowNull: true,
+            type: Sequelize.FLOAT()
+        },
+        CoverageDetail: {
+            allowNull: true,
+            type: Sequelize.STRING(150)
         }
 
     });

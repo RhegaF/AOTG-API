@@ -71,16 +71,16 @@ router.get('/listings/1', redisCache(config.cacheDuration), async (req, res, nex
   res.status(200).json(lists)
 })
 router.get('/listings/2', redisCache(config.cacheDuration), async (req, res, next) => {
-  let [charities, countries, brands] = [
-    await MwClient.fetchCountries(),
-    await MwClient.fetchCharities(),
+  let [ brands] = [
+    // await MwClient.fetchCountries(),
+    // await MwClient.fetchCharities(),
     await MwClient.fetchVehicleBrands()
   ]
 
   let lists = {
-    charities: charities.data,
-    brands: brands.data,
-    countries: countries.data
+    // charities: charities.data,
+    brands: brands.data
+    // countries: countries.data
   }
 
   res.status(200).json(lists)

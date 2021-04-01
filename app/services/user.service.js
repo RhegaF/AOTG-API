@@ -60,7 +60,7 @@ module.exports = {
                 include: [
                   {
                     model: Agent,
-                    attributes: ['AgentID', 'Name'],
+                    attributes: ['AgentID', 'Name','Type','Branch'],
                     required:false
                   },
                 ]

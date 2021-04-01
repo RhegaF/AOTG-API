@@ -7,19 +7,20 @@ module.exports = (sequelize, Sequelize) => {
         },
         CreateDate: {
             allowNull: true,
-            type: Sequelize.DATE
+            type: Sequelize.DATE,
+            defaultValue: Sequelize.NOW
         },
         UpdateDate: {
-            allowNull: false,
+            allowNull: true,
             type: Sequelize.DATE
         },
         CustomerName: {
-            allowNull: false,
+            allowNull: true,
             type: Sequelize.STRING(100)
         },
         IDType: {
             allowNull: true,
-            type: Sequelize.STRING(1)
+            type: Sequelize.STRING(20)
         },
         IDNo: {
             allowNull: true,
@@ -27,7 +28,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         Gender: {
             allowNull: true,
-            type: Sequelize.STRING(1)
+            type: Sequelize.STRING(20)
         },
         BirthDate: {
             allowNull: true,
